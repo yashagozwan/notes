@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes/application/home/home_bloc.dart';
-import 'package:notes/presentation/features/home/home_screen.dart';
+import 'package:notes/application/splash/splash_bloc.dart';
+import 'package:notes/core/di/di.dart';
+import 'package:notes/presentation/features/splash/splash_screen.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -14,10 +16,12 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        _provider(HomeBloc()),
+        _provider(context.get<HomeBloc>()),
+        _provider(context.get<SplashBloc>()),
       ],
       child: const MaterialApp(
-        home: HomeScreen(),
+        debugShowCheckedModeBanner: false,
+        home: SplashScreen(),
       ),
     );
   }
