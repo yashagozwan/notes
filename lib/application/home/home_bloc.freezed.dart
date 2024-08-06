@@ -166,6 +166,8 @@ abstract class _HomeInitial implements HomeEvent {
 /// @nodoc
 mixin _$HomeState {
   String get text => throw _privateConstructorUsedError;
+  bool get isNotesLoading => throw _privateConstructorUsedError;
+  List<NoteModel> get notes => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -177,7 +179,7 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
-  $Res call({String text});
+  $Res call({String text, bool isNotesLoading, List<NoteModel> notes});
 }
 
 /// @nodoc
@@ -194,12 +196,22 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @override
   $Res call({
     Object? text = null,
+    Object? isNotesLoading = null,
+    Object? notes = null,
   }) {
     return _then(_value.copyWith(
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
+      isNotesLoading: null == isNotesLoading
+          ? _value.isNotesLoading
+          : isNotesLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      notes: null == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as List<NoteModel>,
     ) as $Val);
   }
 }
@@ -212,7 +224,7 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       __$$HomeStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String text});
+  $Res call({String text, bool isNotesLoading, List<NoteModel> notes});
 }
 
 /// @nodoc
@@ -227,12 +239,22 @@ class __$$HomeStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? text = null,
+    Object? isNotesLoading = null,
+    Object? notes = null,
   }) {
     return _then(_$HomeStateImpl(
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
+      isNotesLoading: null == isNotesLoading
+          ? _value.isNotesLoading
+          : isNotesLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      notes: null == notes
+          ? _value._notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as List<NoteModel>,
     ));
   }
 }
@@ -240,15 +262,30 @@ class __$$HomeStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$HomeStateImpl implements _HomeState {
-  const _$HomeStateImpl({this.text = ""});
+  const _$HomeStateImpl(
+      {this.text = "",
+      this.isNotesLoading = false,
+      final List<NoteModel> notes = const []})
+      : _notes = notes;
 
   @override
   @JsonKey()
   final String text;
+  @override
+  @JsonKey()
+  final bool isNotesLoading;
+  final List<NoteModel> _notes;
+  @override
+  @JsonKey()
+  List<NoteModel> get notes {
+    if (_notes is EqualUnmodifiableListView) return _notes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_notes);
+  }
 
   @override
   String toString() {
-    return 'HomeState(text: $text)';
+    return 'HomeState(text: $text, isNotesLoading: $isNotesLoading, notes: $notes)';
   }
 
   @override
@@ -256,11 +293,15 @@ class _$HomeStateImpl implements _HomeState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HomeStateImpl &&
-            (identical(other.text, text) || other.text == text));
+            (identical(other.text, text) || other.text == text) &&
+            (identical(other.isNotesLoading, isNotesLoading) ||
+                other.isNotesLoading == isNotesLoading) &&
+            const DeepCollectionEquality().equals(other._notes, _notes));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, text);
+  int get hashCode => Object.hash(runtimeType, text, isNotesLoading,
+      const DeepCollectionEquality().hash(_notes));
 
   @JsonKey(ignore: true)
   @override
@@ -270,10 +311,17 @@ class _$HomeStateImpl implements _HomeState {
 }
 
 abstract class _HomeState implements HomeState {
-  const factory _HomeState({final String text}) = _$HomeStateImpl;
+  const factory _HomeState(
+      {final String text,
+      final bool isNotesLoading,
+      final List<NoteModel> notes}) = _$HomeStateImpl;
 
   @override
   String get text;
+  @override
+  bool get isNotesLoading;
+  @override
+  List<NoteModel> get notes;
   @override
   @JsonKey(ignore: true)
   _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>
